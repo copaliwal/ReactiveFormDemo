@@ -1,0 +1,23 @@
+<h1>Dynamic Form Demo!</h1>
+<br>
+
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+
+    <label for="first-name">First Name: </label>
+    <input id="first-name" type="text" formControlName="firstName">
+
+    <label for="last-name">Last Name: </label>
+    <input id="last-name" type="text" formControlName="lastName">
+
+    <div formArrayName="phoneNumbers">
+        <h2>PhoneNumbers</h2>
+        <button (click)="addAlias()" type="button">+ Add another phoneNumber</button>
+
+        <div *ngFor="let phoneNumber of phoneNumbers.controls; let i=index">
+            <label for="phoneNumber-{{ i }}">PhoneNumbers:</label>
+            <input id="phoneNumber-{{ i }}" type="text" [formControlName]="i">
+        </div>
+    </div>
+
+    <button type="submit" [disabled]="!profileForm.valid">Submit</button>
+</form>
